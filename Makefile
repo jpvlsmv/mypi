@@ -29,11 +29,15 @@ SHELL=/bin/bash
 
 DOCKER_BUILD_CONTEXT=.
 DOCKER_FILE_PATH=Dockerfile
+DOCKER_BUILD_ARGS+=--build-arg TAG_VERSION=$(VERSION)
 
 .PHONY: pre-build docker-build post-build build release patch-release minor-release major-release tag check-status check-release showver \
-	push pre-push do-push post-push
+	push pre-push do-push post-push test
 
 build: pre-build docker-build post-build
+
+test: build
+	docker run -t --rm $(IMAGE):$(VERSION) cat /.release /.tag_version
 
 pre-build:
 

@@ -1,2 +1,6 @@
 FROM debian:stable
-CMD /bin/bash
+ARG TAG_VERSION
+
+COPY .release /.release
+
+RUN echo ${TAG_VERSION} | tee /.tag_version
