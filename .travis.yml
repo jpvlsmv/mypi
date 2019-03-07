@@ -1,0 +1,8 @@
+---
+language: C
+
+services:
+     - docker
+
+script:
+     - make build
