@@ -31,6 +31,8 @@ DOCKER_BUILD_CONTEXT=.
 DOCKER_FILE_PATH=Dockerfile
 DOCKER_BUILD_ARGS+=--build-arg TAG_VERSION=$(VERSION)
 
+download: installer-cache/qemu-2.11.0.tar.xz installer-cache/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2
+
 .PHONY: pre-build docker-build post-build build release patch-release minor-release major-release tag check-status check-release showver \
 	push pre-push do-push post-push test
 
@@ -39,7 +41,7 @@ build: pre-build docker-build post-build
 test: build
 	docker run -t --rm $(IMAGE):$(VERSION) cat /.release /.tag_version
 
-pre-build:
+pre-build: download
 
 
 post-build:
@@ -120,7 +122,6 @@ check-release: .release
 	@. $(RELEASE_SUPPORT) ; tagExists $(TAG) || (echo "ERROR: version not yet tagged in git. make [minor,major,patch]-release." >&2 && exit 1) ;
 	@. $(RELEASE_SUPPORT) ; ! differsFromRelease $(TAG) || (echo "ERROR: current directory differs from tagged $(TAG). make [minor,major,patch]-release." ; exit 1)
 
-.PHONY: installer-cache/*
 installer-cache/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2:
 	curl https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 -Lo $@
 
