@@ -119,3 +119,10 @@ check-status:
 check-release: .release
 	@. $(RELEASE_SUPPORT) ; tagExists $(TAG) || (echo "ERROR: version not yet tagged in git. make [minor,major,patch]-release." >&2 && exit 1) ;
 	@. $(RELEASE_SUPPORT) ; ! differsFromRelease $(TAG) || (echo "ERROR: current directory differs from tagged $(TAG). make [minor,major,patch]-release." ; exit 1)
+
+.PHONY: installer-cache/*
+installer-cache/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2:
+	curl https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 -Lo $@
+
+installer-cache/qemu-2.11.0.tar.xz:
+	curl https://download.qemu.org/qemu-2.11.0.tar.xz -Lo $@
