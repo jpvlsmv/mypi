@@ -38,7 +38,7 @@ DOCKER_BUILD_ARGS+=--build-arg TAG_VERSION=$(VERSION)
 build: pre-build docker-build post-build
 
 test: build
-	docker run -t --rm $(IMAGE):$(VERSION) cat /.release /.tag_version
+	docker run -t --rm $(IMAGE):$(VERSION) cat ~/.release ~/.tag_version
 
 download: installer-cache/qemu-2.11.0.tar.xz installer-cache/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2
 
