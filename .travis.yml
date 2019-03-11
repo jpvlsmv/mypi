@@ -6,8 +6,10 @@ services:
 
 jobs:
      include:
-          - script: make build
-          - script: make test
+          - stage: Build Environment Image
+            script: make build
+          - stage: Test Environment Image
+            script: make test
           - stage: Github Release
             script: echo "Deploying to github releases"
             deploy:
