@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jpvlsmv/mypi.svg?branch=master)](https://travis-ci.org/jpvlsmv/mypi)
+
 # Mypi - custom-build image for my raspberry pi zero w
 
 When possible, use cloud (aka Somebody Else's Computer) to create the build
