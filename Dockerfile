@@ -17,10 +17,15 @@ USER build
 WORKDIR /home/build/
 
 # Pre-built toolchain from ARM
-ADD --chown=build installer-cache/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 /home/build/
+# ADD --chown=build installer-cache/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 /home/build/
+RUN ( curl -sS -Lo - https://developer.arm.com/-/media/Files/downloads/gnu-rm/8-2018q4/gcc-arm-none-eabi-8-2018-q4-major-linux.tar.bz2 \
+	| tar -C /home/build xfj - )
+
 
 # Build qemu from source
-ADD --chown=build installer-cache/qemu-2.11.0.tar.xz /home/build/
+# ADD --chown=build installer-cache/qemu-2.11.0.tar.xz /home/build/
+RUN ( curl -sS -Lo - https://download.qemu.org/qemu-2.11.0.tar.xz \
+	| tar -C /home/build xfj - )
 RUN cd /home/build/qemu-2.11.0 && ./configure --target-list=arm-softmmu,arm-linux-user --prefix=/home/build && make && make install
 
 # Show results
