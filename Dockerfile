@@ -3,6 +3,7 @@ ARG TAG_VERSION
 
 RUN apt-get update && apt-get install -y \
 	build-essential \
+	curl \
 	libfdt-dev \
 	libglib2.0-dev \
 	libpixman-1-dev \
